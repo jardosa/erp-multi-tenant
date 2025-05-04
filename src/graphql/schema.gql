@@ -1,0 +1,128 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User implements Node {
+  createdAt: Int!
+  updatedAt: Int!
+  id: ID!
+  email: String!
+  name: String!
+}
+
+interface Node {
+  id: ID!
+}
+
+type Tenant {
+  createdAt: Int!
+  updatedAt: Int!
+  id: ID!
+  name: String!
+  slug: String!
+  dbName: String!
+  plan: String!
+  enabledModules: [ERPModule!]!
+}
+
+"""ERP Module"""
+enum ERPModule {
+  CRM
+  INVENTORY
+  HR
+  BILLING
+}
+
+type Lead implements Node {
+  createdAt: Int!
+  updatedAt: Int!
+  id: ID!
+  firstName: String!
+  lastName: String
+  tenantId: ID!
+  email: String!
+  phone: String
+  address: String
+  city: String
+  state: String
+  country: String
+  postalCode: String
+}
+
+type Query {
+  tenants: [Tenant!]!
+  tenant(slug: String!): Tenant!
+  user(id: Int!): User!
+  me: User!
+  leads: [Lead!]!
+  lead(id: String!): Lead!
+}
+
+type Mutation {
+  registerTenant(createTenantInput: CreateTenantInput!): Tenant!
+  updateTenant(updateTenantInput: UpdateTenantInput!): Tenant!
+  removeTenant(id: Int!): Tenant!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  login(email: String!, password: String!): String!
+  register(input: RegisterInput!): User!
+  createLead(createLeadInput: CreateLeadInput!): Lead!
+  updateLead(updateLeadInput: UpdateLeadInput!): Lead!
+  removeLead(id: String!): ID!
+}
+
+input CreateTenantInput {
+  slug: String!
+  name: String!
+}
+
+input UpdateTenantInput {
+  slug: String
+  name: String
+  id: Int!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  name: String!
+}
+
+"""Input for creating a lead"""
+input CreateLeadInput {
+  firstName: String!
+  lastName: String
+  email: String!
+  phone: String
+  address: String
+  city: String
+  state: String
+  country: String
+  postalCode: String
+}
+
+"""Input for updating a lead"""
+input UpdateLeadInput {
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  address: String
+  city: String
+  state: String
+  country: String
+  postalCode: String
+  id: String!
+}
