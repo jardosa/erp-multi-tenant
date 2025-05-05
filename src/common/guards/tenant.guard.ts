@@ -2,20 +2,17 @@
 import {
   CanActivate,
   ExecutionContext,
-  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { TenantService } from 'src/tenant/services/tenant.service';
 import { RequestContextService } from '../services/request-context.service';
-import { REQUEST } from '@nestjs/core';
 import { GqlContext } from 'src/graphql-context';
 
 @Injectable()
 export default class TenantGuard implements CanActivate {
   constructor(
-    @Inject(REQUEST) private request: Request,
     private readonly tenantService: TenantService,
     private readonly requestContext: RequestContextService,
   ) {}

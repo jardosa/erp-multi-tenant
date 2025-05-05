@@ -20,6 +20,7 @@ export class LeadResolver {
     private readonly requestContext: RequestContextService,
   ) {}
 
+  @RequireModule(ERPModule.CRM)
   @Mutation(() => Lead)
   createLead(@Args('createLeadInput') createLeadInput: CreateLeadInput) {
     const tenant = this.requestContext.get<Tenant>('tenant');
@@ -32,16 +33,19 @@ export class LeadResolver {
     return this.leadService.findAll({});
   }
 
+  @RequireModule(ERPModule.CRM)
   @Query(() => Lead, { name: 'lead' })
   findOne(@Args('id', { type: () => String }) id: string) {
     return this.leadService.findOne(id);
   }
 
+  @RequireModule(ERPModule.CRM)
   @Mutation(() => Lead)
   async updateLead(@Args('updateLeadInput') updateLeadInput: UpdateLeadInput) {
     return this.leadService.update(updateLeadInput);
   }
 
+  @RequireModule(ERPModule.CRM)
   @Mutation(() => ID)
   async removeLead(@Args('id', { type: () => String }) id: string) {
     return this.leadService.remove(id);

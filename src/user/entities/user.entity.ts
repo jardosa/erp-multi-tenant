@@ -2,13 +2,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import Node from 'src/common/entities/node.entity';
 import TimestampEntity from 'src/common/entities/timestamp.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType({ implements: [Node] })
 @Entity()
